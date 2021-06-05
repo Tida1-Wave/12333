@@ -1,0 +1,76 @@
+﻿<Window x:Class="Captcha.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Captcha"
+        mc:Ignorable="d"
+       Title="" Height="800" Width="1300" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="115"/>
+            <RowDefinition Height="650"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#3e5974" x:Name="ToolBar" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image x:Name="MinBtn" Height="35" Width="35" MouseLeftButtonDown="MinBtn_MouseLeftButtonDown">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Images/Minimize-NonActive.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=MinBtn}" Value="true">
+                                    <Setter Property="Source" Value="Images/Minimize-Active.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    <Image.Effect>
+                        <BlurEffect Radius="1"></BlurEffect>
+                    </Image.Effect>
+                </Image>
+                <Image x:Name="CloseBtn" Height="20" Width="35" Margin="0, 0, 5, 0" MouseLeftButtonDown="CloseBtn_MouseLeftButtonDown">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Images/Close-NonActive.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=CloseBtn}" Value="true">
+                                    <Setter Property="Source" Value="Images/Close-Active.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    <Image.Effect>
+                        <BlurEffect Radius="1"></BlurEffect>
+                    </Image.Effect>
+                </Image>
+            </StackPanel>
+        </Grid>
+
+        <Canvas x:Name="CanvasTop" Grid.Row="1">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#3e5974" Offset="0.44"/>
+                    <GradientStop Color="#FF494949" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+
+            <TextBlock FontSize="48" Foreground="White" Height="101" Width="1292" TextAlignment="Center" VerticalAlignment="Center" FontFamily="/Курсовая работа;component/Fonts/#Open Sans"><Run Text="123 "/><Run Text="123"/></TextBlock>
+            <TextBlock FontSize="36" Foreground="White" Height="55" Width="1292" TextAlignment="Center" VerticalAlignment="Center" Text="-----------------------" Canvas.Top="56" FontFamily="/Курсовая работа;component/Fonts/#Roboto"/>
+            <Label x:Name="TimerLbl" Content="00:00" Visibility="Hidden" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="-0.026,0.295" Canvas.Left="1154" Height="42" Width="87" FontSize="36" FontFamily="/Курсовая работа;component/Fonts/#PerfectDOSVGA437" Canvas.Top="32" Background="#FFBB3636"/>
+        </Canvas>
+        <Button x:Name="Login" Content="Войти в систему" RenderTransformOrigin="0,0" ForceCursor="True" FontSize="32" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Login_Click" Canvas.Left="396" Canvas.Top="179" Margin="477,219,478,355" FontFamily="/Курсовая работа;component/Fonts/#Mont" Height="75" Width="Auto" Grid.Row="2"/>
+        <Button x:Name="Registation" Content="Регистрация" RenderTransformOrigin="0,0" ForceCursor="True" FontSize="32" Background="{x:Null}" Click="Registation_Click" Canvas.Left="396" Canvas.Top="337" Margin="477,317,478,257" FontFamily="/Курсовая работа;component/Fonts/#Mont" Height="75" Width="Auto" Grid.Row="2"/>
+        <Frame NavigationUIVisibility="Hidden" Visibility="Hidden" x:Name="MainFrame" Grid.Row="2" Height="650" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1292"/>
+    </Grid>
+</Window>
+ 

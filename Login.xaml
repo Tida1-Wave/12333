@@ -1,0 +1,72 @@
+﻿<Window x:Class="Captcha.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Captcha"
+ mc:Ignorable="d"
+        Title="Auth" Height="480" Width="462" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" WindowStyle="None">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#e5ebf1" Height="480">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="49"/>
+            <RowDefinition Height="431"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#3e5974" Offset="0.44"/>
+                    <GradientStop Color="#FF494949" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <TextBlock Foreground="White" TextWrapping="Wrap" Text="Авторизация"  Height="39" Width="221" FontSize="28" FontFamily="/Курсовая работа;component/Fonts/#Mont" Grid.RowSpan="2" Canvas.Left="6" Canvas.Top="4"/>
+        </Canvas>
+        <Button x:Name="BackBtn" Content="Назад" Height="Auto" Width="Auto" Click="BackBtn_Click" Background="White" Margin="28,518,434,-87" Grid.Row="1" FontFamily="/Captcha;component/Fonts/#Mont"/>
+
+        <TextBox Style="{DynamicResource TextBoxStyle1}" x:Name="LoginTB" Height="40" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Width="300" FontSize="16" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="81,61,81,330" Grid.Row="1"/>
+        <TextBlock IsHitTestVisible="False" Text="Логин" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkGray" Width="132" Height="40" FontSize="18" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="86,67,0,324" Grid.Row="1">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=LoginTB}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <Button x:Name="LoginBtn" Content="Войти" Height="45" Width="210" FontSize="22" Background="White" Click="LoginBtn_Click" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="126,178,126,208" Grid.Row="1"/>
+        <TextBlock x:Name="ErrorTBlock" HorizontalAlignment="Center" TextAlignment="Center" Visibility="Hidden" TextWrapping="Wrap" Text="Неверный пароль!" Width="300" Height="29" Foreground="Red" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="81,177,81,226" Grid.Row="1"/>
+        <TextBlock x:Name="TryesRemainedTBlock" HorizontalAlignment="Center" TextAlignment="Center" Visibility="Hidden" TextWrapping="Wrap" Text="Осталось 3 попытки" Width="300" Height="29" Foreground="Black" Margin="81,177,81,226" Grid.Row="1"/>
+        <PasswordBox Style="{DynamicResource PasswordBoxStyle}" x:Name="PasswordTB" Height="40" VerticalContentAlignment="Center" Width="300" FontSize="16" KeyDown="PasswordTB_KeyDown" PasswordChanged="PasswordTB_PasswordChanged" Margin="81,106,81,285" Grid.Row="1"/>
+        <TextBox x:Name="HiddenPasswordTB" Visibility="Hidden" Style="{DynamicResource TextBoxStyle1}"  Height="40" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Width="300" FontSize="16" FontFamily="/Курсовая работа;component/Fonts/#Mont" TextChanged="HiddenPasswordTB_TextChanged" Margin="81,106,81,285" Grid.Row="1"/>
+        <TextBlock x:Name="passwordchecker" IsHitTestVisible="False" Text="Пароль" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkGray" Width="132" Height="40" FontSize="18" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="86,112,0,279" Grid.Row="1"/>
+        <CheckBox x:Name="ShowPassCB" Content="Показать пароль" IsEnabled="True" Width="168" Height="20" FontSize="16" Style="{DynamicResource CheckBoxStyle1}" Click="ShowPassCB_Click" FontFamily="/Курсовая работа;component/Fonts/#Mont" Margin="81,151,213,260" Grid.Row="1" />
+        <Image x:Name="CaptchaImage" Height="87" Margin="137,171,137,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBox Style="{DynamicResource TextBoxStyle1}" Visibility="Hidden" x:Name="CaptchaTB" Margin="137,263,0,0" HorizontalAlignment="Left" Height="39" MaxLength="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="188" FontSize="18" FontFamily="/Курсовая работа;component/Fonts/#Mont" Grid.Row="1" TextChanged="CaptchaTB_TextChanged"/>
+        <Label x:Name="TimeRespondLbl" HorizontalContentAlignment="Center" Content="" FontSize="18" Margin="81,334,90,63" FontFamily="/Курсовая работа;component/Fonts/#Mont" Grid.Row="1"></Label>
+        <Label x:Name="ErrorMsgLbl" HorizontalContentAlignment="Center" Content="" FontSize="18" Margin="61,306,67,88" FontFamily="/Курсовая работа;component/Fonts/#Mont" Grid.Row="1"/>
+        <Image x:Name="CloseBtn" Height="20" Width="35" Margin="417,12,10,17" MouseLeftButtonDown="CloseBtn_MouseLeftButtonDown">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="Images/Close-NonActive.png"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=CloseBtn}" Value="true">
+                            <Setter Property="Source" Value="Images/Close-Active.png"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+            <Image.Effect>
+                <BlurEffect Radius="1"></BlurEffect>
+            </Image.Effect>
+        </Image>
+    </Grid>
+</Window>
